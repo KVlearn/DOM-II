@@ -1,14 +1,14 @@
 // Your code goes here
 // * `mouseover` - done + mouseleave
-// * `keydown` -done + keyup
+// * `keydown` - done + keyup
 // * `wheel` 
 // * `load` - done 
-// * `focus`
+// * `focus` - done
 // * `resize` - done
 // * `scroll` - done
-// * `select` 
+// * `select` -done
 // * `dblclick` - done
-// * `drag / drop`
+// * `drag / drop` - done
 
 /* mouseover on nav bar to change color of element to yellow */
 
@@ -156,26 +156,47 @@ window.addEventListener('scroll',()=>{
 })
 /*select and focus => works on forms */
 /* Create form */
-let myDest=document.querySelector('.destination')
-let myLabel = document.createElement("myLabel")
+let myDest=document.querySelector('.destination') /*the last section class*/
+/*Creating a label element that reads "enter your email" */
+const myLabel = document.createElement("label")
 myLabel.textContent="Enter your email";
+myLabel.style.color="white";
 myLabel.style.fontSize="1.6rem";
 myLabel.style.margin="2rem";
 myLabel.style.padding="3rem";
 
+/*creating a form element */
 let myForm = document.createElement("form");
     //   document.body.appendChild(f);
     //  myDest.appendChild(myForm);
-    myLabel.appendChild(myForm);
+    /* append form element next to label element */  
+      myLabel.appendChild(myForm);
+      /*create input element for the form with type as text */
       let myInput = document.createElement("input");
       myInput.setAttribute("type", "text");
       myInput.setAttribute("name", "email");
       myInput.setAttribute("value","Enter your Email")
       myForm.appendChild(myInput);
-
-myForm.style.paddingTop="1rem";
+/*style the form*/
+myForm.style.paddingTop="1.5rem";
 myForm.style.paddingBottom="1rem";
+myLabel.style.display="flex";
+myLabel.style.flexDirection="column";
+
+/*add the label element at the end of last container */
 myDest.appendChild(myLabel);
+
+/*focus */
+myInput.addEventListener('focus',()=>{
+    myInput.style.backgroundColor='#17A2B8';
+}) 
+
+/*select */
+myInput.addEventListener('select',()=>{
+   myInput.style.backgroundColor='hotpink';
+}) 
+
+/*drag drop event */
 
 let newdiv1=document.createElement("dropzone");
 newdiv1.className="dropzone"
@@ -185,14 +206,79 @@ newdiv1.className="dropzone"
 let newdiv2=document.createElement("dropzone");
 myLabel.appendChild(newdiv2)
 newdiv2.textContent="place2"
+ 
+let dragged;
+/*assign all destination p*/
+let divDest=document.querySelectorAll('.destination p')
+divDest[0].textContent="Tour de Moon ! Fall in love with the Craters.Witness the Giant Leap of Mankind. Learn to drink your hot cup of Coffee in the Moon with zero Gravity."
+divDest[1].textContent="Tour de Mars ! Enjoy the Reddiness of the planet B.Keep your eyes open to wish hellos and shake hands with Marsians! if you happend to spot one..."
+divDest[2].textContent="Tour de Sun , the ultimate adventure to take a look at our closest Star!. Witness the solar flares , our life source of energy. Daring adventure of all! "
 
-/*focus */
- myInput.addEventListener('focus',()=>{
-     myInput.style.backgroundColor='goldenrod';
- }) 
 
-/*select */
-myInput.addEventListener('select',()=>{
-    myInput.style.backgroundColor='pink';
-}) 
+//  let myH4=document.querySelectorAll('H4');
+//  myH4[0].className="dropzone";
+//  myH4[1].className="dropzone";
+//  myH4[2].className="dropzone";
+// /*  set the below attributes for destination div class <div id="draggable" draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)"> */
+//  myDest[0].id="draggable";
+//  myDest[0].draggable="true";
+//  myDest[0].ondragstart="event.dataTransfer.setData('text/plain',null)";
+
+/* events fired on the draggable target */
+document.addEventListener("drag", function(){
+
+}, false);
+
+document.addEventListener("dragstart", function(event) {
+  // store a ref. on the dragged elem
+  dragged = event.target;
+  // make it half transparent
+  event.target.style.opacity = .5;
+  event.target.style.color="green"
+}, false);
+
+document.addEventListener("dragend", function(event) {
+  // reset the transparency
+  event.target.style.opacity = "";
+}, false);
+
+/* events fired on the drop targets */
+document.addEventListener("dragover", function(event) {
+  // prevent default to allow drop
+  event.preventDefault();
+}, false);
+
+document.addEventListener("dragenter", function(event) {
+  // highlight potential drop target when the draggable element enters it
+  if (event.target.className == "destination") {
+    event.target.style.background = "pink";
+    event.target.style.fontSize="2rem";
+    event.target.style.color="dodgerblue";
+    event.target.style.fontStyle="cursive";
+  }
+
+}, false);
+
+document.addEventListener("dragleave", function(event) {
+  // reset background of potential drop target when the draggable element leaves it
+  if (event.target.className == "destination") {
+    event.target.style.background = "";
+  }
+
+}, false);
+
+
+document.addEventListener("drop", function(event) {
+  // prevent default action (open as link for some elements)
+  event.preventDefault();
+  // move dragged elem to the selected drop target
+  if (event.target.className == "destination") {
+    event.target.style.background = "";
+    dragged.parentNode.removeChild( dragged );
+    event.target.appendChild( dragged );
+  }
+}, false);
+
+// /* Try to name class as 'dropzone for destination class and try moving the content say fun in sun to mountain excursion*/
+
  
