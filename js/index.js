@@ -1,7 +1,7 @@
 // Your code goes here
 // * `mouseover` - done + mouseleave
 // * `keydown` - done + keyup
-// * `wheel` 
+// * `wheel` - done
 // * `load` - done 
 // * `focus` - done
 // * `resize` - done
@@ -201,11 +201,9 @@ myInput.addEventListener('select',()=>{
 let newdiv1=document.createElement("dropzone");
 newdiv1.className="dropzone"
 myLabel.appendChild(newdiv1)
-newdiv1.textContent="place1"
 newdiv1.className="dropzone"
 let newdiv2=document.createElement("dropzone");
 myLabel.appendChild(newdiv2)
-newdiv2.textContent="place2"
  
 let dragged;
 /*assign all destination p*/
@@ -280,5 +278,30 @@ document.addEventListener("drop", function(event) {
 }, false);
 
 // /* Try to name class as 'dropzone for destination class and try moving the content say fun in sun to mountain excursion*/
-
+/* wheel even on nav*/
  
+window.addEventListener("wheel",event=>{
+  header.style.backgroundColor="snow";
+  event.stopPropagation();
+})
+ 
+// * [ ] Nest two similar events somewhere in the site and prevent the event propagation properly. Remember not all event types bubble.
+// mouseover - Bubbles
+// Check mouseover on header and mouseover on H2
+
+header.addEventListener('click',event=>{
+event.target.style.background = "limegreen";
+// event.stopPropagation(); 
+})
+h1.addEventListener('click',event=>{
+  event.target.style.color = "red";
+  event.stopPropagation();/*without stop, both color change happens*/
+  })
+
+// * [ ] Stop the navigation items from refreshing the page by using `preventDefault()` /* without preventDefault, on click of nav links it takes to the top of the page*/
+navLinks.forEach(item =>{
+  item.addEventListener('click',(event)=>{
+      event.preventDefault();
+  })
+})
+  
